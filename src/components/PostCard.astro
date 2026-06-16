@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+const { post } = Astro.props as { post: CollectionEntry<'blog'> };
+const { title, description, pubDate, tags } = post.data;
+const formattedDate = pubDate.toLocaleDateString('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<a href={`/blog/${post.slug}`} class="post-card">
+  <h2 class="post-card-title">{title}</h2>
+  <p class="post-card-description">{description}</p>
+  <div class="post-card-meta">
+    <span class="post-card-date">📅 {formattedDate}</span>
+    {tags.length > 0 && (
+      <span>🏷️ {tags.slice(0, 3).join(' · ')}{tags.length > 3 ? ` +${tags.length - 3}` : ''}</span>
+    )}
+  </div>
+</a>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import SearchBar from '../components/SearchBar.astro';
+import { getPublishedPosts } from '../utils/posts';
+
+const posts = await getPublishedPosts();
+---
+
+<BaseLayout>
+  <section class="page-header">
+    <h1 class="page-title">👋 欢迎来到我的博客</h1>
+    <p class="page-description">
+      记录日常生活中的点滴，分享技术、阅读与思考。
+    </p>
+  </section>
+
+  <SearchBar />
+
+  {
+    posts.length === 0 ? (
+      <div class="empty-state">
+        <div class="empty-state-icon">📭</div>
+        <p>还没有文章，马上开始写第一篇吧！</p>
+      </div>
+    ) : (
+      <ul class="post-list">
+        {posts.map((post) => (
+          <li>
+            <PostCard {post} />
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</BaseLayout>

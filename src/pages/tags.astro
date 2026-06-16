@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TagCloud from '../components/TagCloud.astro';
+import { getTagCounts } from '../utils/posts';
+
+const tagCounts = await getTagCounts();
+---
+
+<BaseLayout title="标签">
+  <header class="page-header">
+    <h1 class="page-title">🏷️ 标签</h1>
+    <p class="page-description">
+      共 {tagCounts.size} 个标签，点击标签查看相关文章。
+    </p>
+  </header>
+
+  {
+    tagCounts.size === 0 ? (
+      <div class="empty-state">
+        <div class="empty-state-icon">🏷️</div>
+        <p>还没有标签，发布第一篇文章时添加标签吧！</p>
+      </div>
+    ) : (
+      <TagCloud />
+    )
+  }
+</BaseLayout>

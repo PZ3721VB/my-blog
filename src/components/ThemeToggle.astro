@@ -1,0 +1,43 @@
+<button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换亮色/暗色主题">
+  <span class="theme-icon-light">☀️</span>
+  <span class="theme-icon-dark">🌙</span>
+</button>
+
+<style>
+  .theme-icon-dark {
+    display: none;
+  }
+  [data-theme='dark'] .theme-icon-light {
+    display: none;
+  }
+  [data-theme='dark'] .theme-icon-dark {
+    display: inline;
+  }
+</style>
+
+<script>
+  // Theme toggle logic
+  const STORAGE_KEY = 'blog-theme';
+
+  function getTheme(): 'light' | 'dark' {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === 'dark' || stored === 'light') return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme: 'light' | 'dark') {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+  }
+
+  // Apply theme immediately to prevent flash
+  const theme = getTheme();
+  applyTheme(theme);
+
+  // Toggle on click
+  document.getElementById('themeToggle')?.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+  });
+</script>

@@ -1,0 +1,44 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const fullTitle = title ? `${title} — 日常博客` : '日常博客 — 记录生活的点点滴滴';
+const metaDescription = description || '一个记录日常生活的个人博客，分享技术、生活与感悟。';
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={metaDescription} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={metaDescription} />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate" type="application/rss+xml" title="日常博客 RSS" href="/rss.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <title>{fullTitle}</title>
+</head>
+<body>
+  <div class="site-wrapper">
+    <Header />
+    <main>
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+    <Footer />
+  </div>
+</body>
+</html>

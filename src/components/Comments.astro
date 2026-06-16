@@ -1,0 +1,47 @@
+---
+// Giscus 评论系统配置
+// 使用前请前往 https://github.com/apps/giscus 为你的仓库启用 Giscus
+// 然后修改下面的配置信息
+const GISCUS_REPO = 'your-username/your-repo';      // <-- 改成你的 GitHub 仓库
+const GISCUS_REPO_ID = 'your-repo-id';               // <-- 改成你的仓库 ID
+const GISCUS_CATEGORY = 'Announcements';             // <-- 改成你的 Discussion 分类
+const GISCUS_CATEGORY_ID = 'your-category-id';       // <-- 改成你的分类 ID
+const GISCUS_ENABLED = false;                         // <-- 配置好后改为 true
+---
+
+<div class="comments-section">
+  {
+    GISCUS_ENABLED ? (
+      <>
+        <h2>💬 评论</h2>
+        <p style="color: var(--color-text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+          如果对这篇文章有任何想法，欢迎在下方留言讨论～
+        </p>
+        <div class="giscus" style="margin-top: 1.5rem;"></div>
+        <script src="https://giscus.app/client.js"
+          data-repo={GISCUS_REPO}
+          data-repo-id={GISCUS_REPO_ID}
+          data-category={GISCUS_CATEGORY}
+          data-category-id={GISCUS_CATEGORY_ID}
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="preferred_color_scheme"
+          data-lang="zh-CN"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </>
+    ) : (
+      <div style="text-align: center; padding: 2rem 0; color: var(--color-text-secondary);">
+        <p>💬 评论功能尚未启用</p>
+        <p style="font-size: 0.85rem; margin-top: 0.5rem;">
+          配置 Giscus 后即可使用。详见 <code>src/components/Comments.astro</code> 中的配置说明。
+        </p>
+      </div>
+    )
+  }
+</div>

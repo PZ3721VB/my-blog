@@ -1,0 +1,17 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="site-logo">📝 日常博客</a>
+    <nav class="header-nav">
+      <a href="/" class={currentPath === '/' ? 'active' : ''}>首页</a>
+      <a href="/tags" class={currentPath.startsWith('/tags') ? 'active' : ''}>标签</a>
+      <a href="/about" class={currentPath === '/about' ? 'active' : ''}>关于</a>
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>
